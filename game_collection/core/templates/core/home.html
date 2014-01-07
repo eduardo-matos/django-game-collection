@@ -1,0 +1,40 @@
+{% extends 'core/layout.html' %}
+{% block content %}
+<div class="page-header">
+        <h1>All Games <small>Gotta catch 'em all!</small></h1>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <a href="" class="btn btn-primary">Create Game</a>
+        </div>
+    </div>
+
+    {% if not object_list %}
+        <p>There are no games!</p>
+    {% else %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Publisher</th>
+                    <th>Complete</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for game in object_list %}
+                    <tr>
+                        <td>{{ game.title }}</td>
+                        <td>{{ game.publisher }}</td>
+                        <td>{{ game.completed|yesno:"Yes,No" }}</td>
+                        <td>
+                            <a href="">Edit</a>
+                            <a href="">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{%endblock%}

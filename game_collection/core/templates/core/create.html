@@ -1,0 +1,12 @@
+{% extends 'core/layout.html' %}
+{% block content %}
+    <div class="page-header">
+        <h1>All Games <small>Gotta catch 'em all!</small></h1>
+    </div>
+
+    <form action="{% url 'create' %}" method="post">{% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Create" />
+    </form>
+
+{%endblock%}

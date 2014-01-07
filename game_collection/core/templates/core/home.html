@@ -30,7 +30,7 @@
                         <td>{{ game.completed|yesno:"Yes,No" }}</td>
                         <td>
                             <a href="{% url 'update' game.pk %}">Edit</a>
-                            <a href="">Delete</a>
+                            <a href="{% url 'delete' game.pk %}">Delete</a>
                         </td>
                     </tr>
                 {% endfor %}

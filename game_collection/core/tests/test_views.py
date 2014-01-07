@@ -61,3 +61,20 @@ class UpdateViewTest(TestCase):
         action = r('update', kwargs={'pk': self.game.pk})
         resp = self.client.get(action)
         self.assertContains(resp, 'action="' + action + '"')
+
+
+class DeleteViewTest(TestCase):
+    def setUp(self):
+        self.game = mommy.make(Game)
+
+    def test_view_exists(self):
+        resp = self.client.get(r('delete', kwargs={'pk': self.game.pk}))
+        self.assertEquals(200, resp.status_code)
+
+    def test_show_confirmation_message(self):
+        resp = self.client.get(r('delete', kwargs={'pk': self.game.pk}))
+        self.assertContains(resp, 'are you sure')
+
+    def test_redirects_home_after_delete(self):
+        resp = self.client.post(r('delete', kwargs={'pk': self.game.pk}))
+        self.assertRedirects(resp, r('home'))

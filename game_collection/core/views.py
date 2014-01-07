@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic.list import ListView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy as r
 from .models import Game
 
@@ -34,3 +34,9 @@ class UpdateGameView(ActionMixin, UpdateView):
 
     def get_action(self):
         return r('update', kwargs={'pk': self.object.pk})
+
+
+class DeleteGameView(DeleteView):
+    model = Game
+    template_name = 'core/delete.html'
+    success_url = r('home')

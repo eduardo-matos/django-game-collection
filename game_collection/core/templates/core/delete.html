@@ -1,0 +1,11 @@
+{% extends 'core/layout.html' %}
+{% block content %}
+    <div class="page-header">
+        <h1>Delete Game {{ object.title }} <small>are you sure?</small></h1>
+    </div>
+
+    <form method="post">{% csrf_token %}
+        <a href="{% url 'home' %}" class="btn btn-primary">No Way!</a>
+        <input type="submit" class="btn btn-primary" value="Yes">
+    </form>
+{%endblock%}

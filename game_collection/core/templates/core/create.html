@@ -1,12 +1,32 @@
 {% extends 'core/layout.html' %}
+{% load addcss %}
 {% block content %}
     <div class="page-header">
         <h1>All Games <small>Gotta catch 'em all!</small></h1>
     </div>
 
     <form action="{% url 'create' %}" method="post">{% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Create" />
+        {{ form.non_field_errors }}
+        <div class="form-group">
+            <label for="{{ form.title.id_for_label }}">{{ form.title.label }}</label>
+            {{ form.title|addcss:"form-control" }}
+            {{ form.title.errors }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.publisher.id_for_label }}">{{ form.publisher.label }}</label>
+            {{ form.publisher|addcss:"form-control" }}
+            {{ form.publisher.errors }}
+        </div>
+
+        <div class="form-group">
+            {{ form.completed }}
+            <label for="{{ form.completed.id_for_label }}">{{ form.completed.label }}?</label>
+            {{ form.completed.errors }}
+        </div>
+
+        <input type="submit" value="Create" class="btn btn-primary">
+        <a href="{% url 'home' %}" class="btn btn-primary">Cancel</a>
     </form>
 
 {%endblock%}

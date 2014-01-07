@@ -39,3 +39,25 @@ class CreateViewTest(TestCase):
         game_data = {'title': '', 'publisher': '', 'completed': True}
         resp = self.client.post(r('create'), game_data)
         self.assertContains(resp, 'error')
+
+    def test_form_action_is_create(self):
+        resp = self.client.get(r('create'))
+        self.assertContains(resp, 'action="' + r('create') + '"')
+
+
+class UpdateViewTest(TestCase):
+    def setUp(self):
+        self.game = mommy.make(Game)
+
+    def test_view_exists(self):
+        resp = self.client.get(r('update', kwargs={'pk': self.game.pk}))
+        self.assertEquals(200, resp.status_code)
+
+    def test_redirects_home_after_saving_game(self):
+        resp = self.client.post(r('update', kwargs={'pk': self.game.pk}), {'title': 'a', 'publisher': 'b', 'completed': True})
+        self.assertRedirects(resp, r('home'))
+
+    def test_form_action_is_update(self):
+        action = r('update', kwargs={'pk': self.game.pk})
+        resp = self.client.get(action)
+        self.assertContains(resp, 'action="' + action + '"')

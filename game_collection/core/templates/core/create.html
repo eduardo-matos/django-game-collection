@@ -5,7 +5,7 @@
         <h1>All Games <small>Gotta catch 'em all!</small></h1>
     </div>
 
-    <form action="{% url 'create' %}" method="post">{% csrf_token %}
+    <form action="{{ action }}" method="post">{% csrf_token %}
         {{ form.non_field_errors }}
         <div class="form-group">
             <label for="{{ form.title.id_for_label }}">{{ form.title.label }}</label>
@@ -25,7 +25,7 @@
             {{ form.completed.errors }}
         </div>
 
-        <input type="submit" value="Create" class="btn btn-primary">
+        <input type="submit" value="Save" class="btn btn-primary">
         <a href="{% url 'home' %}" class="btn btn-primary">Cancel</a>
     </form>
 

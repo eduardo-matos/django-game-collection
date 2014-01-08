@@ -4,8 +4,11 @@ python:
   - "2.7"
 install:
   - pip install -r requirements/local.txt
+  - pip install coveralls
 script:
   - export SECRET_KEY=super.secret.key
   - export DJANGO_SETTINGS_MODULE=game_collection.settings.test
   - cd game_collection
   - python manage.py test
+  - coverage run --source=core manage.py test
+after_success: coveralls
